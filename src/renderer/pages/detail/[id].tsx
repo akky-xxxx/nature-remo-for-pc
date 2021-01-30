@@ -1,9 +1,9 @@
 // import { NextPageContext } from 'next'
-import Layout from '../../components/Layout'
-import { User } from '../../interfaces'
-import { findAll, findData } from '../../utils/sample-api'
-import ListDetail from '../../components/ListDetail'
-import { GetStaticPaths, GetStaticProps } from 'next'
+import { GetStaticPaths, GetStaticProps } from "next"
+import Layout from "../../components/Layout"
+import { User } from "../../interfaces"
+import { findAll, findData } from "../../utils/sample-api"
+import ListDetail from "../../components/ListDetail"
 
 type Params = {
   id?: string
@@ -17,9 +17,9 @@ type Props = {
 const InitialPropsDetail = ({ item, errors }: Props) => {
   if (errors) {
     return (
-      <Layout title={`Error | Next.js + TypeScript + Electron Example`}>
+      <Layout title="Error | Next.js + TypeScript + Electron Example">
         <p>
-          <span style={{ color: 'red' }}>Error:</span> {errors}
+          <span style={{ color: "red" }}>Error:</span> {errors}
         </p>
       </Layout>
     )
@@ -27,7 +27,7 @@ const InitialPropsDetail = ({ item, errors }: Props) => {
 
   return (
     <Layout
-      title={`${item ? item.name : 'Detail'} | Next.js + TypeScript Example`}
+      title={`${item ? item.name : "Detail"} | Next.js + TypeScript Example`}
     >
       {item && <ListDetail item={item} />}
     </Layout>
