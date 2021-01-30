@@ -41,6 +41,7 @@ module.exports = {
     ],
     "react/jsx-props-no-spreading": OFF,
     "react/prop-types": OFF,
+    "react/require-default-props": OFF,
     "react/jsx-fragments": [ERROR, "element"],
     "react-hooks/rules-of-hooks": ERROR,
     "prettier/prettier": ERROR,
