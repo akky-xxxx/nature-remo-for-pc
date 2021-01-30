@@ -1,4 +1,5 @@
 // import { NextPageContext } from 'next'
+import React from "react"
 import { GetStaticPaths, GetStaticProps } from "next"
 import Layout from "../../components/Layout"
 import { User } from "../../interfaces"
