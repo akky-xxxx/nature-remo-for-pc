@@ -1,0 +1,19 @@
+{
+  "sortToTop": [
+    "name",
+    "productName",
+    "version",
+    "author",
+    "private",
+    "repository",
+    "main",
+    "types",
+    "scripts",
+    "dependencies",
+    "peerDependencies",
+    "devDependencies",
+    "browser",
+    "description",
+    "workspaces"
+  ]
+}

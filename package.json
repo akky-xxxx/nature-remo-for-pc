@@ -1,18 +1,18 @@
 {
   "name": "nature-remo-for-pc",
-  "version": "1.0.0",
-  "license": "MIT",
-  "main": "main/index.js",
-  "author": "akky-xxxx <114.s.aki@gmail.com>",
   "productName": "NatureRemoForPc",
+  "version": "1.0.0",
+  "author": "akky-xxxx <114.s.aki@gmail.com>",
+  "main": "main/index.js",
   "scripts": {
+    "build": "yarn build-renderer && yarn build-electron",
+    "build-electron": "tsc -p src/electron",
+    "build-renderer": "next build src/renderer && next export src/renderer",
     "clean": "rimraf dist main src/renderer/out src/renderer/.next  src/renderer/out",
     "dev": "yarn build-electron && electron .",
-    "build-renderer": "next build src/renderer && next export src/renderer",
-    "build-electron": "tsc -p src/electron",
-    "build": "yarn build-renderer && yarn build-electron",
-    "pack-app": "yarn build && electron-builder --dir",
     "dist": "yarn build && electron-builder",
+    "fix:pack": "fixpack",
+    "pack-app": "yarn build && electron-builder --dir",
     "type-check": "tsc"
   },
   "dependencies": {
@@ -27,6 +27,7 @@
     "@types/react-dom": "^16.9.9",
     "electron": "^10.1.5",
     "electron-builder": "^22.9.1",
+    "fixpack": "^4.0.0",
     "next": "latest",
     "rimraf": "^3.0.0",
     "typescript": "^4.0.5"
@@ -37,5 +38,6 @@
       "main",
       "renderer/out"
     ]
-  }
+  },
+  "license": "MIT"
 }
