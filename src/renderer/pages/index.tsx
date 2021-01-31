@@ -6,7 +6,8 @@ const IndexPage = () => {
   useEffect(() => {
     // add a listener to 'message' channel
     global.ipcRenderer.addListener("message", (_event, args) => {
-      alert(args)
+      // eslint-disable-next-line no-alert
+      window.alert(args)
     })
   }, [])
 
@@ -17,11 +18,11 @@ const IndexPage = () => {
   return (
     <Layout title="Home | Next.js + TypeScript + Electron Example">
       <h1>Hello Next.js 👋</h1>
-      <button onClick={onSayHiClick}>Say hi to electron</button>
+      <button type="button" onClick={onSayHiClick}>
+        Say hi to electron
+      </button>
       <p>
-        <Link href="/about">
-          <a>About</a>
-        </Link>
+        <Link href="/about">About</Link>
       </p>
     </Layout>
   )
