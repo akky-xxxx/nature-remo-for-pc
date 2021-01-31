@@ -40,6 +40,7 @@ module.exports = {
       },
     ],
     "react/jsx-props-no-spreading": OFF,
+    "react/no-unused-prop-types": OFF,
     "react/prop-types": OFF,
     "react/require-default-props": OFF,
     "react/jsx-fragments": [ERROR, "element"],
