@@ -5,6 +5,7 @@
   "author": "akky-xxxx <114.s.aki@gmail.com>",
   "main": "main/index.js",
   "scripts": {
+    "api-mock": "node spec/api-mock/index.js",
     "build": "run-s build:renderer build:electron",
     "build:electron": "tsc -p src/electron",
     "build:renderer": "next build src/renderer && next export src/renderer",
@@ -29,6 +30,7 @@
     "electron": "^10.1.5",
     "electron-is-dev": "^1.1.0",
     "electron-next": "^3.1.5",
+    "express": "^4.17.1",
     "next": "latest",
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
