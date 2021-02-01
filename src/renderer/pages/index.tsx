@@ -1,17 +1,21 @@
+// import node_modules
 import React, { useEffect } from "react"
 import Link from "next/link"
 
+// import others
+import { Channels } from "../shared/const/Channels"
+
+// main
+const { GET_APPLIANCES } = Channels
 const IndexPage = () => {
   useEffect(() => {
-    // add a listener to 'message' channel
-    global.ipcRenderer.addListener("message", (_event, args) => {
-      // eslint-disable-next-line no-alert
-      window.alert(args)
+    global.ipcRenderer.on(GET_APPLIANCES, (_event, args) => {
+      console.log(args)
     })
   }, [])
 
   const onSayHiClick = () => {
-    global.ipcRenderer.send("message", "hi from next")
+    global.ipcRenderer.send(GET_APPLIANCES, null)
   }
 
   return (

@@ -3,9 +3,12 @@ import { join } from "path"
 import { format } from "url"
 
 // Packages
-import { BrowserWindow, app } from "electron"
+import { BrowserWindow, app, ipcMain } from "electron"
 import isDev from "electron-is-dev"
 import prepareNext from "electron-next"
+
+// import listeners
+import { getAppliances } from "./messageHandlers/getAppliances"
 
 // Prepare the renderer once the app is ready
 app.on("ready", async () => {
@@ -19,6 +22,7 @@ app.on("ready", async () => {
       preload: join(__dirname, "preload.js"),
     },
   })
+  if (isDev) mainWindow.webContents.openDevTools()
 
   const url = isDev
     ? "http://localhost:8000/"
@@ -33,3 +37,5 @@ app.on("ready", async () => {
 
 // Quit the app once all windows are closed
 app.on("window-all-closed", app.quit)
+
+ipcMain.on(...getAppliances)
