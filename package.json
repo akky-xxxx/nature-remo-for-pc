@@ -27,6 +27,7 @@
     "type-check:renderer": "tsc -p ./src/renderer"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "electron": "^10.1.5",
     "electron-is-dev": "^1.1.0",
     "electron-next": "^3.1.5",
