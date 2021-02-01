@@ -61,8 +61,39 @@ export const useHome = () => {
 
   const expandedRowRender: ExpandedRowRender = (record) => {
     const signalsData = record.signals
+    const onSortEnd2 = (args: Record<"oldIndex" | "newIndex", number>) => {
+      const { oldIndex, newIndex } = args
+      if (oldIndex === newIndex) return
+      const newData = arrayMove([...data], oldIndex, newIndex).filter(Boolean)
+      setData(newData)
+    }
+    const DraggableSignals = (props: any) => (
+      <SortableWrapper
+        useDragHandle
+        disableAutoScroll
+        helperClass="row-dragging"
+        onSortEnd={onSortEnd2}
+        {...props}
+      />
+    )
+    const DraggableSignal = (props: any) => {
+      const index = data.findIndex(
+        (appliance) => appliance.index === props["data-row-key"],
+      )
+      return <SortableItem index={index} {...props} />
+    }
     return (
-      <Table columns={columns} dataSource={signalsData} pagination={false} />
+      <Table
+        columns={columns}
+        dataSource={signalsData}
+        pagination={false}
+        components={{
+          body: {
+            wrapper: DraggableSignals,
+            row: DraggableSignal,
+          },
+        }}
+      />
     )
   }
 
