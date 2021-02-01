@@ -60,11 +60,28 @@ export const useHome = () => {
   }
 
   const expandedRowRender: ExpandedRowRender = (record) => {
-    const signalsData = record.signals
+    const targetApplianceId = record.id
+    const targetSignals = data.find(
+      (appliance) => appliance.id === targetApplianceId,
+    )?.signals
+    if (!targetSignals) return null
+    // TODO: 関数名を変える
+    // TODO: 並び替えがバグるので調査
     const onSortEnd2 = (args: Record<"oldIndex" | "newIndex", number>) => {
       const { oldIndex, newIndex } = args
       if (oldIndex === newIndex) return
-      const newData = arrayMove([...data], oldIndex, newIndex).filter(Boolean)
+      const newSignal = arrayMove(
+        [...targetSignals],
+        oldIndex,
+        newIndex,
+      ).filter(Boolean)
+      const newData = data.map((appliance) => {
+        if (appliance.id !== targetApplianceId) return appliance
+        return {
+          ...appliance,
+          signals: newSignal,
+        }
+      })
       setData(newData)
     }
     const DraggableSignals = (props: any) => (
@@ -85,8 +102,9 @@ export const useHome = () => {
     return (
       <Table
         columns={columns}
-        dataSource={signalsData}
+        dataSource={targetSignals}
         pagination={false}
+        rowKey="index"
         components={{
           body: {
             wrapper: DraggableSignals,

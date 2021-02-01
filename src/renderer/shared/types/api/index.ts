@@ -1,6 +1,7 @@
 type Signal = {
   id: string
   name: string
+  index: number
   image: string
 }
 
