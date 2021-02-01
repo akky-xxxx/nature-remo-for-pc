@@ -3,6 +3,4 @@ import React from "react"
 import { SortableElement } from "react-sortable-hoc"
 
 // main
-export const SortableAppliance = SortableElement((props: any) => (
-  <tr {...props} />
-))
+export const SortableItem = SortableElement((props: any) => <tr {...props} />)

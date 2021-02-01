@@ -5,8 +5,8 @@ import arrayMove from "array-move"
 
 // import others
 import { Appliance } from "../../../../../shared/types/api"
-import { SortableApplianceWrapper } from "../../components/atoms/SortableApplianceWrapper"
-import { SortableAppliance } from "../../components/atoms/SortableAppliance"
+import { SortableWrapper } from "../../components/atoms/SortableWrapper"
+import { SortableItem } from "../../components/atoms/SortableItem"
 import { Channels } from "../../../../../shared/const/Channels"
 import { DragHandle } from "../../components/atoms/DragHandle"
 
@@ -43,7 +43,7 @@ export const useHome = () => {
   }
 
   const DraggableWrapper = (props: any) => (
-    <SortableApplianceWrapper
+    <SortableWrapper
       useDragHandle
       disableAutoScroll
       helperClass="row-dragging"
@@ -56,7 +56,7 @@ export const useHome = () => {
     const index = data.findIndex(
       (appliance) => appliance.index === props["data-row-key"],
     )
-    return <SortableAppliance index={index} {...props} />
+    return <SortableItem index={index} {...props} />
   }
 
   const expandedRowRender: ExpandedRowRender = (record) => {
