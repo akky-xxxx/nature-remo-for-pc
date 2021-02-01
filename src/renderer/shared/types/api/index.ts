@@ -5,6 +5,7 @@ type Signal = {
 }
 
 export type Appliance = {
+  key: string
   id: string
   nickname: string
   signals: Signal[]
