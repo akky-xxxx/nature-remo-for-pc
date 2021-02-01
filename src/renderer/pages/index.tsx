@@ -1,14 +1,12 @@
 // import node_modules
 import React, { useEffect, useState } from "react"
-import {
-  SortableContainer,
-  SortableElement,
-  SortableHandle,
-} from "react-sortable-hoc"
+import { SortableContainer, SortableElement } from "react-sortable-hoc"
 import { Table } from "antd"
-import { MenuOutlined } from "@ant-design/icons"
 import "antd/dist/antd.css"
 import arrayMove from "array-move"
+
+// import components
+import { DragHandle } from "../components/templates/Home/components/atoms/DragHandle"
 
 // import others
 import { Channels } from "../shared/const/Channels"
@@ -16,10 +14,6 @@ import { Appliance } from "../shared/types/api"
 
 // main
 const { GET_APPLIANCES } = Channels
-
-const DragHandle = SortableHandle(() => (
-  <MenuOutlined style={{ cursor: "pointer" }} />
-))
 
 const columns = [
   {
