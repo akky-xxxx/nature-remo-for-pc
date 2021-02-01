@@ -4,12 +4,13 @@ import Link from "next/link"
 
 // import others
 import { Channels } from "../shared/const/Channels"
+import { Appliance } from "../shared/types/api"
 
 // main
 const { GET_APPLIANCES } = Channels
 const IndexPage = () => {
   useEffect(() => {
-    global.ipcRenderer.on(GET_APPLIANCES, (_event, args) => {
+    global.ipcRenderer.on(GET_APPLIANCES, (_event, args: Appliance[]) => {
       console.log(args)
     })
   }, [])
