@@ -1,6 +1,6 @@
 // import node_modules
 import React from "react"
-import { Table } from "antd"
+import { Table, Form, Input } from "antd"
 import "antd/dist/antd.css"
 
 // import components
@@ -23,6 +23,11 @@ const columns = [
     title: "Appliance",
     dataIndex: "nickname",
     className: "drag-visible",
+    render: (nickname: string) => (
+      <Form.Item rules={[{ required: true }]}>
+        <Input value={nickname} />
+      </Form.Item>
+    ),
   },
 ]
 
@@ -37,18 +42,20 @@ export const Home = () => {
         </button>
       </div>
 
-      <Table
-        dataSource={data}
-        pagination={false}
-        columns={columns}
-        rowKey="index"
-        components={{
-          body: {
-            wrapper: DraggableWrapper,
-            row: DraggableBodyRow,
-          },
-        }}
-      />
+      <Form>
+        <Table
+          dataSource={data}
+          pagination={false}
+          columns={columns}
+          rowKey="index"
+          components={{
+            body: {
+              wrapper: DraggableWrapper,
+              row: DraggableBodyRow,
+            },
+          }}
+        />
+      </Form>
     </div>
   )
 }
