@@ -34,8 +34,8 @@ const columns = [
 export const Home = () => {
   const {
     data,
-    DraggableWrapper,
-    DraggableBodyRow,
+    DraggableAppliances,
+    DraggableAppliance,
     expandedRowRender,
     onSayHiClick,
   } = useHome()
@@ -57,8 +57,8 @@ export const Home = () => {
           expandable={{ expandedRowRender, expandIconColumnIndex: 1 }}
           components={{
             body: {
-              wrapper: DraggableWrapper,
-              row: DraggableBodyRow,
+              wrapper: DraggableAppliances,
+              row: DraggableAppliance,
             },
           }}
         />

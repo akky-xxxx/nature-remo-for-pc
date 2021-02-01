@@ -42,7 +42,7 @@ export const useHome = () => {
     setData(newData)
   }
 
-  const DraggableWrapper = (props: any) => (
+  const DraggableAppliances = (props: any) => (
     <SortableWrapper
       useDragHandle
       disableAutoScroll
@@ -52,7 +52,7 @@ export const useHome = () => {
     />
   )
 
-  const DraggableBodyRow = (props: any) => {
+  const DraggableAppliance = (props: any) => {
     const index = data.findIndex(
       (appliance) => appliance.index === props["data-row-key"],
     )
@@ -127,8 +127,8 @@ export const useHome = () => {
 
   return {
     data,
-    DraggableWrapper,
-    DraggableBodyRow,
+    DraggableAppliances,
+    DraggableAppliance,
     expandedRowRender,
     onSayHiClick,
   }
