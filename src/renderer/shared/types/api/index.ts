@@ -7,6 +7,7 @@ type Signal = {
 export type Appliance = {
   key: string
   id: string
+  index: number
   nickname: string
   signals: Signal[]
 }

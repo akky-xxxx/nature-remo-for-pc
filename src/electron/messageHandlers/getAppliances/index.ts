@@ -8,8 +8,9 @@ import { apiClient } from "../../shared/utils/apiClient"
 // main
 const listener: Listener = async (event) => {
   const { data } = await apiClient.get<Appliance[]>(Endpoints.GET_APPLIANCES)
-  const responseData = data.map((item) => ({
+  const responseData = data.map((item, index) => ({
     key: item.id,
+    index,
     ...item,
   }))
   event.sender.send(Channels.GET_APPLIANCES, responseData)

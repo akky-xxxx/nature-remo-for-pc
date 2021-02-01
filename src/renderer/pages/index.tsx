@@ -1,7 +1,14 @@
 // import node_modules
 import React, { useEffect, useState } from "react"
-import { List, Card, Collapse } from "antd"
+import {
+  SortableContainer,
+  SortableElement,
+  SortableHandle,
+} from "react-sortable-hoc"
+import { Table } from "antd"
+import { MenuOutlined } from "@ant-design/icons"
 import "antd/dist/antd.css"
+import arrayMove from "array-move"
 
 // import others
 import { Channels } from "../shared/const/Channels"
@@ -9,10 +16,56 @@ import { Appliance } from "../shared/types/api"
 
 // main
 const { GET_APPLIANCES } = Channels
-const { Panel } = Collapse
+
+const DragHandle = SortableHandle(() => (
+  <MenuOutlined style={{ cursor: "pointer" }} />
+))
+
+const columns = [
+  {
+    title: "Sort",
+    dataIndex: "sort",
+    width: 30,
+    className: "drag-visible",
+    render: () => <DragHandle />,
+  },
+  {
+    title: "Appliance",
+    dataIndex: "nickname",
+    className: "drag-visible",
+  },
+]
+
+const SortableAppliance = SortableElement((props: any) => <tr {...props} />)
+const SortableApplianceWrapper = SortableContainer((props: any) => (
+  <tbody {...props} />
+))
 
 const IndexPage = () => {
   const [data, setData] = useState<Appliance[]>([])
+  const onSortEnd = (args: Record<"oldIndex" | "newIndex", number>) => {
+    const { oldIndex, newIndex } = args
+    if (oldIndex === newIndex) return
+    const newData = arrayMove([...data], oldIndex, newIndex).filter(Boolean)
+    setData(newData)
+  }
+
+  const DraggableWrapper = (props: any) => (
+    <SortableApplianceWrapper
+      useDragHandle
+      disableAutoScroll
+      helperClass="row-dragging"
+      onSortEnd={onSortEnd}
+      {...props}
+    />
+  )
+
+  const DraggableBodyRow = (props: any) => {
+    const index = data.findIndex(
+      (appliance) => appliance.index === props["data-row-key"],
+    )
+    return <SortableAppliance index={index} {...props} />
+  }
 
   useEffect(() => {
     global.ipcRenderer.on(GET_APPLIANCES, (_event, args: Appliance[]) => {
@@ -32,32 +85,17 @@ const IndexPage = () => {
         </button>
       </div>
 
-      <List
-        grid={{
-          gutter: 16,
-          xs: 1,
-          sm: 2,
-          md: 4,
-          lg: 4,
-          xl: 6,
-          xxl: 3,
-        }}
+      <Table
         dataSource={data}
-        renderItem={(appliance) => (
-          <List.Item>
-            <Card title={appliance.nickname}>
-              {Boolean(appliance.signals.length) && (
-                <Collapse>
-                  <Panel header="signal" key={appliance.id}>
-                    {appliance.signals.map((signal) => (
-                      <div key={signal.id}>{signal.name}</div>
-                    ))}
-                  </Panel>
-                </Collapse>
-              )}
-            </Card>
-          </List.Item>
-        )}
+        pagination={false}
+        columns={columns}
+        rowKey="index"
+        components={{
+          body: {
+            wrapper: DraggableWrapper,
+            row: DraggableBodyRow,
+          },
+        }}
       />
     </div>
   )
