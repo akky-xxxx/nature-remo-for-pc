@@ -1,6 +1,5 @@
 // import node_modules
 import React, { useEffect, useState } from "react"
-import { SortableContainer } from "react-sortable-hoc"
 import { Table } from "antd"
 import "antd/dist/antd.css"
 import arrayMove from "array-move"
@@ -8,6 +7,7 @@ import arrayMove from "array-move"
 // import components
 import { DragHandle } from "../components/templates/Home/components/atoms/DragHandle"
 import { SortableAppliance } from "../components/templates/Home/components/atoms/SortableAppliance"
+import { SortableApplianceWrapper } from "../components/templates/Home/components/atoms/SortableApplianceWrapper"
 
 // import others
 import { Channels } from "../shared/const/Channels"
@@ -30,10 +30,6 @@ const columns = [
     className: "drag-visible",
   },
 ]
-
-const SortableApplianceWrapper = SortableContainer((props: any) => (
-  <tbody {...props} />
-))
 
 const IndexPage = () => {
   const [data, setData] = useState<Appliance[]>([])
