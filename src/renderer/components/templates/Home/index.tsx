@@ -32,7 +32,13 @@ const columns = [
 ]
 
 export const Home = () => {
-  const { data, DraggableWrapper, DraggableBodyRow, onSayHiClick } = useHome()
+  const {
+    data,
+    DraggableWrapper,
+    DraggableBodyRow,
+    expandedRowRender,
+    onSayHiClick,
+  } = useHome()
 
   return (
     <div>
@@ -48,6 +54,7 @@ export const Home = () => {
           pagination={false}
           columns={columns}
           rowKey="index"
+          expandable={{ expandedRowRender, expandIconColumnIndex: 1 }}
           components={{
             body: {
               wrapper: DraggableWrapper,
