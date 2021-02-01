@@ -1,12 +1,13 @@
 // import node_modules
 import React, { useEffect, useState } from "react"
-import { SortableContainer, SortableElement } from "react-sortable-hoc"
+import { SortableContainer } from "react-sortable-hoc"
 import { Table } from "antd"
 import "antd/dist/antd.css"
 import arrayMove from "array-move"
 
 // import components
 import { DragHandle } from "../components/templates/Home/components/atoms/DragHandle"
+import { SortableAppliance } from "../components/templates/Home/components/atoms/SortableAppliance"
 
 // import others
 import { Channels } from "../shared/const/Channels"
@@ -30,7 +31,6 @@ const columns = [
   },
 ]
 
-const SortableAppliance = SortableElement((props: any) => <tr {...props} />)
 const SortableApplianceWrapper = SortableContainer((props: any) => (
   <tbody {...props} />
 ))
