@@ -21,17 +21,7 @@ module.exports = {
     "no-use-before-define": OFF,
     "@typescript-eslint/no-unused-vars": [ERROR],
     "import/prefer-default-export": OFF,
-    "import/no-extraneous-dependencies": [
-      ERROR,
-      {
-        devDependencies: [
-          "**/stories.tsx",
-          "**/*.stories.tsx",
-          "**/test.ts*",
-          "**/*.test.ts*",
-        ],
-      },
-    ],
+    "import/no-extraneous-dependencies": [OFF],
     "import/extensions": [
       "error",
       {
