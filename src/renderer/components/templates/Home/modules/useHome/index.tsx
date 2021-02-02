@@ -1,5 +1,5 @@
 // import node_modules
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, FC } from "react"
 import { Form, Input, Table, TableProps } from "antd"
 import arrayMove from "array-move"
 
@@ -9,6 +9,7 @@ import { SortableWrapper } from "../../components/atoms/SortableWrapper"
 import { SortableItem } from "../../components/atoms/SortableItem"
 import { Channels } from "../../../../../shared/const/Channels"
 import { DragHandle } from "../../components/atoms/DragHandle"
+import { DraggableWrapperProps, DraggableItemProps } from "./types"
 
 // main
 const { GET_APPLIANCES } = Channels
@@ -44,7 +45,7 @@ export const useHome = () => {
     setData(newData)
   }
 
-  const DraggableAppliances = (props: any) => (
+  const DraggableAppliances: FC<DraggableWrapperProps> = (props) => (
     <SortableWrapper
       useDragHandle
       disableAutoScroll
@@ -54,7 +55,7 @@ export const useHome = () => {
     />
   )
 
-  const DraggableAppliance = (props: any) => {
+  const DraggableAppliance: FC<DraggableItemProps> = (props) => {
     const index = data.findIndex(
       (appliance) => appliance.index === props["data-row-key"],
     )
@@ -87,7 +88,8 @@ export const useHome = () => {
       })
       setData(newData)
     }
-    const DraggableSignals = (props: any) => (
+
+    const DraggableSignals: FC<DraggableWrapperProps> = (props) => (
       <SortableWrapper
         useDragHandle
         disableAutoScroll
@@ -96,7 +98,8 @@ export const useHome = () => {
         {...props}
       />
     )
-    const DraggableSignal = (props: any) => {
+
+    const DraggableSignal: FC<DraggableItemProps> = (props) => {
       const index = data.findIndex(
         (appliance) => appliance.index === props["data-row-key"],
       )
