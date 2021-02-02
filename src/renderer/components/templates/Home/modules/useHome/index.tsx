@@ -35,7 +35,9 @@ const columns = [
 type ExpandedRowRender = TableProps<Appliance>["expandedRowRender"]
 export const useHome = () => {
   const [data, setData] = useState<Appliance[]>([])
-  const onSortEnd = (args: Record<"oldIndex" | "newIndex", number>) => {
+  const handleSortEndAppliances = (
+    args: Record<"oldIndex" | "newIndex", number>,
+  ) => {
     const { oldIndex, newIndex } = args
     if (oldIndex === newIndex) return
     const newData = arrayMove([...data], oldIndex, newIndex).filter(Boolean)
@@ -47,7 +49,7 @@ export const useHome = () => {
       useDragHandle
       disableAutoScroll
       helperClass="row-dragging"
-      onSortEnd={onSortEnd}
+      onSortEnd={handleSortEndAppliances}
       {...props}
     />
   )
@@ -65,9 +67,10 @@ export const useHome = () => {
       (appliance) => appliance.id === targetApplianceId,
     )?.signals
     if (!targetSignals) return null
-    // TODO: 関数名を変える
     // TODO: 並び替えがバグるので調査
-    const onSortEnd2 = (args: Record<"oldIndex" | "newIndex", number>) => {
+    const handleSortEndSignals = (
+      args: Record<"oldIndex" | "newIndex", number>,
+    ) => {
       const { oldIndex, newIndex } = args
       if (oldIndex === newIndex) return
       const newSignal = arrayMove(
@@ -89,7 +92,7 @@ export const useHome = () => {
         useDragHandle
         disableAutoScroll
         helperClass="row-dragging"
-        onSortEnd={onSortEnd2}
+        onSortEnd={handleSortEndSignals}
         {...props}
       />
     )
