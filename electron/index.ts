@@ -1,16 +1,15 @@
-// Native
+// import node_modules
 import { join } from "path"
 import { format } from "url"
-
-// Packages
 import { BrowserWindow, app, ipcMain } from "electron"
 import isDev from "electron-is-dev"
 import prepareNext from "electron-next"
+import log from "electron-log"
 
 // import listeners
 import { getAppliances } from "./messageHandlers/getAppliances"
 
-// Prepare the renderer once the app is ready
+// main
 app.on("ready", async () => {
   await prepareNext("./renderer")
 
@@ -39,3 +38,10 @@ app.on("ready", async () => {
 app.on("window-all-closed", app.quit)
 
 ipcMain.on(...getAppliances)
+
+process.on("uncaughtException", (err) => {
+  log.error("electron:event:uncaughtException")
+  log.error(err)
+  log.error(err.stack)
+  app.quit()
+})
