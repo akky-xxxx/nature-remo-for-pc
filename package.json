@@ -78,7 +78,8 @@
     "asar": true,
     "files": [
       "./main",
-      "./src/renderer/out"
+      "./src/renderer/out",
+      ".env"
     ]
   },
   "license": "MIT"
