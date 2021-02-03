@@ -7,11 +7,11 @@
   "scripts": {
     "api-mock": "node spec/api-mock/index.js",
     "build": "run-p build:*",
-    "build:electron": "tsc -p electron",
-    "build:renderer": "next build renderer && next export renderer",
+    "build:electron": "tsc -p ./src/electron",
+    "build:renderer": "next build ./src/renderer && next export ./src/renderer",
     "check-all": "npm-run-all -s fix -p check-code",
     "check-code": "run-p spell-check lint type-check",
-    "clean": "rimraf dist main renderer/out renderer/.next  renderer/out",
+    "clean": "rimraf dist ./main ./src/renderer/out ./src/renderer/.next  ./src/renderer/out",
     "dev": "npm-run-all -s build:electron -p run:electron api-mock",
     "dist": "yarn build && electron-builder",
     "fix": "run-p fix:*",
@@ -24,8 +24,8 @@
     "run:electron": "electron .",
     "spell-check": "cspell './**/*.{ts,tsx}'",
     "type-check": "run-p type-check:*",
-    "type-check:electron": "tsc -p electron",
-    "type-check:renderer": "tsc -p renderer"
+    "type-check:electron": "tsc -p ./src/electron",
+    "type-check:renderer": "tsc -p ./src/renderer"
   },
   "dependencies": {
     "@ant-design/icons": "^4.4.0",
@@ -77,8 +77,8 @@
   "build": {
     "asar": true,
     "files": [
-      "main",
-      "renderer/out"
+      "./main",
+      "./src/renderer/out"
     ]
   },
   "license": "MIT"

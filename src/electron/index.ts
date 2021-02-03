@@ -11,7 +11,7 @@ import { getAppliances } from "./messageHandlers/getAppliances"
 
 // main
 app.on("ready", async () => {
-  await prepareNext("./renderer")
+  await prepareNext("./src/renderer")
 
   const mainWindow = new BrowserWindow({
     width: 800,
@@ -26,7 +26,7 @@ app.on("ready", async () => {
   const url = isDev
     ? "http://localhost:8000/"
     : format({
-        pathname: join(__dirname, "../renderer/out/index.html"),
+        pathname: join(__dirname, "../src/renderer/out/index.html"),
         protocol: "file:",
         slashes: true,
       })
