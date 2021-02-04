@@ -5,7 +5,7 @@ const controllers = Router()
 controllers.get("/appliances", (_req, res) => {
   res.json(appliances)
 })
-controllers.post("/appliances", (req, res) => {
+controllers.post("/appliance_orders", (req, res) => {
   const {
     body: { appliances },
   } = req
