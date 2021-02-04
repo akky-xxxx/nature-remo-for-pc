@@ -15,6 +15,7 @@ export const Home = () => {
     DraggableAppliance,
     expandedRowRender,
     onSayHiClick,
+    handleSaveAppliancesOrder,
   } = useHome()
 
   return (
@@ -22,6 +23,10 @@ export const Home = () => {
       <div>
         <button type="button" onClick={onSayHiClick}>
           get appliances
+        </button>
+
+        <button type="button" onClick={handleSaveAppliancesOrder}>
+          save appliances order
         </button>
       </div>
 

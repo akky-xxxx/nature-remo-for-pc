@@ -20,7 +20,7 @@ import { DraggableWrapperProps, DraggableItemProps } from "./types"
 import { applianceReducer } from "./modules/applianceReducer"
 
 // main
-const { GET_APPLIANCES } = Channels
+const { GET_APPLIANCES, PUT_APPLIANCES } = Channels
 const columns = [
   {
     title: "Sort",
@@ -178,6 +178,10 @@ export const useHome = () => {
     global.ipcRenderer.send(GET_APPLIANCES, null)
   }
 
+  const handleSaveAppliancesOrder = () => {
+    global.ipcRenderer.send(PUT_APPLIANCES, appliances)
+  }
+
   return {
     data, // TODO: 差し替え終わったら消す
     appliances,
@@ -186,5 +190,6 @@ export const useHome = () => {
     DraggableAppliance,
     expandedRowRender,
     onSayHiClick,
+    handleSaveAppliancesOrder,
   }
 }
