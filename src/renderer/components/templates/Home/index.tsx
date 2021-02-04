@@ -33,7 +33,7 @@ const columns = [
 
 export const Home = () => {
   const {
-    data,
+    appliances,
     DraggableAppliances,
     DraggableAppliance,
     expandedRowRender,
@@ -50,7 +50,7 @@ export const Home = () => {
 
       <Form>
         <Table
-          dataSource={data}
+          dataSource={appliances}
           pagination={false}
           columns={columns}
           rowKey="index"

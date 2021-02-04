@@ -1,5 +1,5 @@
 // import node_modules
-import React, { useEffect, useState, FC } from "react"
+import React, { useEffect, useState, useReducer, FC } from "react"
 import { Form, Input, Table, TableProps } from "antd"
 import arrayMove from "array-move"
 
@@ -10,6 +10,7 @@ import { SortableItem } from "../../components/atoms/SortableItem"
 import { Channels } from "../../../../../shared/const/Channels"
 import { DragHandle } from "../../components/atoms/DragHandle"
 import { DraggableWrapperProps, DraggableItemProps } from "./types"
+import { applianceReducer } from "./modules/applianceReducer"
 
 // main
 const { GET_APPLIANCES } = Channels
@@ -35,14 +36,15 @@ const columns = [
 
 type ExpandedRowRender = TableProps<Appliance>["expandedRowRender"]
 export const useHome = () => {
-  const [data, setData] = useState<Appliance[]>([])
+  const [data, setData] = useState<Appliance[]>([]) // TODO: 差し替え終わったら消す
+  const [appliances, dispatchAppliance] = useReducer(applianceReducer, [])
   const handleSortEndAppliances = (
     args: Record<"oldIndex" | "newIndex", number>,
   ) => {
-    const { oldIndex, newIndex } = args
-    if (oldIndex === newIndex) return
-    const newData = arrayMove([...data], oldIndex, newIndex).filter(Boolean)
-    setData(newData)
+    dispatchAppliance({
+      type: "changeOrder",
+      payload: { ...args },
+    })
   }
 
   const DraggableAppliances: FC<DraggableWrapperProps> = (props) => (
@@ -56,7 +58,7 @@ export const useHome = () => {
   )
 
   const DraggableAppliance: FC<DraggableItemProps> = (props) => {
-    const index = data.findIndex(
+    const index = appliances.findIndex(
       (appliance) => appliance.index === props["data-row-key"],
     )
     return <SortableItem index={index} {...props} />
@@ -64,7 +66,7 @@ export const useHome = () => {
 
   const expandedRowRender: ExpandedRowRender = (record) => {
     const targetApplianceId = record.id
-    const targetSignals = data.find(
+    const targetSignals = appliances.find(
       (appliance) => appliance.id === targetApplianceId,
     )?.signals
     if (!targetSignals) return null
@@ -79,7 +81,7 @@ export const useHome = () => {
         oldIndex,
         newIndex,
       ).filter(Boolean)
-      const newData = data.map((appliance) => {
+      const newData = appliances.map((appliance) => {
         if (appliance.id !== targetApplianceId) return appliance
         return {
           ...appliance,
@@ -100,7 +102,7 @@ export const useHome = () => {
     )
 
     const DraggableSignal: FC<DraggableItemProps> = (props) => {
-      const index = data.findIndex(
+      const index = appliances.findIndex(
         (appliance) => appliance.index === props["data-row-key"],
       )
       return <SortableItem index={index} {...props} />
@@ -124,6 +126,10 @@ export const useHome = () => {
   useEffect(() => {
     global.ipcRenderer.on(GET_APPLIANCES, (_event, args: Appliance[]) => {
       setData(args)
+      dispatchAppliance({
+        type: "initialize",
+        payload: { appliances: args },
+      })
     })
   }, [])
 
@@ -132,7 +138,8 @@ export const useHome = () => {
   }
 
   return {
-    data,
+    data, // TODO: 差し替え終わったら消す
+    appliances,
     DraggableAppliances,
     DraggableAppliance,
     expandedRowRender,
