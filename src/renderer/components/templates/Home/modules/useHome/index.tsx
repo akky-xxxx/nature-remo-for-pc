@@ -1,6 +1,13 @@
 // import node_modules
-import React, { useEffect, useState, useReducer, FC } from "react"
+import React, {
+  useEffect,
+  useState,
+  useReducer,
+  FC,
+  ChangeEventHandler,
+} from "react"
 import { Form, Input, Table, TableProps } from "antd"
+import { ColumnsType } from "antd/es/table"
 import arrayMove from "array-move"
 
 // import others
@@ -46,6 +53,40 @@ export const useHome = () => {
       payload: { ...args },
     })
   }
+
+  const applianceColumns: ColumnsType<Appliance> = [
+    {
+      title: "Sort",
+      dataIndex: "sort",
+      width: 30,
+      className: "drag-visible",
+      render: () => <DragHandle />,
+    },
+    {
+      title: "Appliance",
+      dataIndex: "nickname",
+      className: "drag-visible",
+      render: (nickname: string, record) => {
+        const { id } = record
+        const handleChangeNickname: ChangeEventHandler<HTMLInputElement> = (
+          event,
+        ) => {
+          dispatchAppliance({
+            type: "changeApplianceName",
+            payload: {
+              targetId: id,
+              newName: event.target.value,
+            },
+          })
+        }
+        return (
+          <Form.Item rules={[{ required: true }]}>
+            <Input value={nickname} onChange={handleChangeNickname} />
+          </Form.Item>
+        )
+      },
+    },
+  ]
 
   const DraggableAppliances: FC<DraggableWrapperProps> = (props) => (
     <SortableWrapper
@@ -140,6 +181,7 @@ export const useHome = () => {
   return {
     data, // TODO: 差し替え終わったら消す
     appliances,
+    applianceColumns,
     DraggableAppliances,
     DraggableAppliance,
     expandedRowRender,

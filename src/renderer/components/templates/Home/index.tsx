@@ -1,39 +1,16 @@
 // import node_modules
 import React from "react"
-import { Table, Form, Input } from "antd"
+import { Table, Form } from "antd"
 import "antd/dist/antd.css"
-
-// import components
-import { DragHandle } from "./components/atoms/DragHandle"
 
 // import others
 import { useHome } from "./modules/useHome"
 
 // main
-
-const columns = [
-  {
-    title: "Sort",
-    dataIndex: "sort",
-    width: 30,
-    className: "drag-visible",
-    render: () => <DragHandle />,
-  },
-  {
-    title: "Appliance",
-    dataIndex: "nickname",
-    className: "drag-visible",
-    render: (nickname: string) => (
-      <Form.Item rules={[{ required: true }]}>
-        <Input value={nickname} />
-      </Form.Item>
-    ),
-  },
-]
-
 export const Home = () => {
   const {
     appliances,
+    applianceColumns,
     DraggableAppliances,
     DraggableAppliance,
     expandedRowRender,
@@ -52,7 +29,7 @@ export const Home = () => {
         <Table
           dataSource={appliances}
           pagination={false}
-          columns={columns}
+          columns={applianceColumns}
           rowKey="index"
           expandable={{ expandedRowRender, expandIconColumnIndex: 1 }}
           components={{

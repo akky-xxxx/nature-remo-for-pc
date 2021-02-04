@@ -29,7 +29,7 @@ export const applianceReducer: ApplianceReducer = (state, action) => {
           if (appliance.id !== targetId) return appliance
           return {
             ...appliance,
-            signals: newName,
+            nickname: newName,
           }
         })
       })()
