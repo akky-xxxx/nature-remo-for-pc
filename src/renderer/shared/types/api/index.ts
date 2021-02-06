@@ -9,6 +9,7 @@ export type Appliance = {
   key: string
   id: string
   index: number
+  image: string
   nickname: string
   signals: Signal[]
 }

@@ -8,6 +8,7 @@ import log from "electron-log"
 
 // import listeners
 import { getAppliances } from "./messageHandlers/getAppliances"
+import { postAppliancesAppliance } from "./messageHandlers/postAppliancesAppliance"
 import { postApplianceOrders } from "./messageHandlers/postApplianceOrders"
 
 // main
@@ -39,6 +40,7 @@ app.on("ready", async () => {
 app.on("window-all-closed", app.quit)
 
 ipcMain.on(...getAppliances)
+ipcMain.on(...postAppliancesAppliance)
 ipcMain.on(...postApplianceOrders)
 
 process.on("uncaughtException", (err) => {

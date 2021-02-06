@@ -6,7 +6,7 @@ import React, {
   FC,
   ChangeEventHandler,
 } from "react"
-import { Form, Input, Table, TableProps } from "antd"
+import { Form, Input, Table, TableProps, Button } from "antd"
 import { ColumnsType } from "antd/es/table"
 import arrayMove from "array-move"
 
@@ -20,7 +20,11 @@ import { DraggableWrapperProps, DraggableItemProps } from "./types"
 import { applianceReducer } from "./modules/applianceReducer"
 
 // main
-const { GET_APPLIANCES, POST_APPLIANCE_ORDERS } = Channels
+const {
+  GET_APPLIANCES,
+  POST_APPLIANCES_APPLIANCE,
+  POST_APPLIANCE_ORDERS,
+} = Channels
 const columns = [
   {
     title: "Sort",
@@ -67,7 +71,11 @@ export const useHome = () => {
       dataIndex: "nickname",
       className: "drag-visible",
       render: (nickname: string, record) => {
-        const { id } = record
+        const { id, image } = record
+        const requestData = { id, image, nickname }
+        const handleSaveAppliancesName = () => {
+          global.ipcRenderer.send(POST_APPLIANCES_APPLIANCE, requestData)
+        }
         const handleChangeNickname: ChangeEventHandler<HTMLInputElement> = (
           event,
         ) => {
@@ -82,6 +90,7 @@ export const useHome = () => {
         return (
           <Form.Item rules={[{ required: true }]}>
             <Input value={nickname} onChange={handleChangeNickname} />
+            <Button onClick={handleSaveAppliancesName}>保存</Button>
           </Form.Item>
         )
       },
