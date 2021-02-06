@@ -35,7 +35,6 @@ export const Home = () => {
           dataSource={appliances}
           pagination={false}
           columns={applianceColumns}
-          rowKey="index"
           expandable={{ expandedRowRender, expandIconColumnIndex: 1 }}
           components={{
             body: {

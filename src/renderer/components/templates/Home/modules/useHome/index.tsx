@@ -1,14 +1,11 @@
 // import node_modules
-import React, {
-  useEffect,
-  useState,
-  useReducer,
-  FC,
-  ChangeEventHandler,
-} from "react"
-import { Form, Input, Table, TableProps, Button } from "antd"
+import React, { useEffect, useState, useReducer, FC } from "react"
+import { Form, Input, Table, TableProps } from "antd"
 import { ColumnsType } from "antd/es/table"
 import arrayMove from "array-move"
+
+// import components
+import { ApplianceRecord } from "../../components/molecules/ApplianceRecord"
 
 // import others
 import { Appliance } from "../../../../../shared/types/api"
@@ -20,11 +17,7 @@ import { DraggableWrapperProps, DraggableItemProps } from "./types"
 import { applianceReducer } from "./modules/applianceReducer"
 
 // main
-const {
-  GET_APPLIANCES,
-  POST_APPLIANCES_APPLIANCE,
-  POST_APPLIANCE_ORDERS,
-} = Channels
+const { GET_APPLIANCES, POST_APPLIANCE_ORDERS } = Channels
 const columns = [
   {
     title: "Sort",
@@ -70,30 +63,11 @@ export const useHome = () => {
       title: "Appliance",
       dataIndex: "nickname",
       className: "drag-visible",
-      render: (nickname: string, record) => {
-        const { id, image } = record
-        const requestData = { id, image, nickname }
-        const handleSaveAppliancesName = () => {
-          global.ipcRenderer.send(POST_APPLIANCES_APPLIANCE, requestData)
-        }
-        const handleChangeNickname: ChangeEventHandler<HTMLInputElement> = (
-          event,
-        ) => {
-          dispatchAppliance({
-            type: "changeApplianceName",
-            payload: {
-              targetId: id,
-              newName: event.target.value,
-            },
-          })
-        }
-        return (
-          <Form.Item rules={[{ required: true }]}>
-            <Input value={nickname} onChange={handleChangeNickname} />
-            <Button onClick={handleSaveAppliancesName}>保存</Button>
-          </Form.Item>
-        )
-      },
+      render: (_nickname: string, record) => (
+        <Form.Item rules={[{ required: true }]}>
+          <ApplianceRecord {...record} />
+        </Form.Item>
+      ),
     },
   ]
 
