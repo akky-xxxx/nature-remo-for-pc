@@ -1,0 +1,6 @@
+electron-next.d.ts
+next-env.d.ts
+dist/
+out/
+.next/
+main/
