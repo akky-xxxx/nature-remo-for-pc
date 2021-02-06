@@ -1,5 +1,6 @@
 // import node_modules
 import log from "electron-log"
+import FormData from "form-data"
 
 // import
 import { Listener } from "../../shared/types/electron"
@@ -10,13 +11,18 @@ import { apiClient } from "../../shared/utils/apiClient"
 
 // main
 const listener: Listener = async (event, appliances: Appliance[]) => {
-  const requestData = {
-    appliances: appliances.map((appliance) => appliance.id).join(","),
-  } as const
+  const requestAppliances = appliances.map((appliance) => appliance.id).join(",")
+  const formData = new FormData()
+  formData.append("appliances", requestAppliances)
   try {
     await apiClient.post<Appliance[]>(
       Endpoints.POST_APPLIANCE_ORDER,
-      requestData,
+      formData,
+      {
+        headers: {
+          ...formData.getHeaders(),
+        },
+      }
     )
     event.sender.send(Channels.PUT_APPLIANCES, true)
   } catch (error) {
