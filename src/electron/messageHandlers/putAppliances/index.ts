@@ -11,7 +11,9 @@ import { apiClient } from "../../shared/utils/apiClient"
 
 // main
 const listener: Listener = async (event, appliances: Appliance[]) => {
-  const requestAppliances = appliances.map((appliance) => appliance.id).join(",")
+  const requestAppliances = appliances
+    .map((appliance) => appliance.id)
+    .join(",")
   const formData = new FormData()
   formData.append("appliances", requestAppliances)
   try {
@@ -22,7 +24,7 @@ const listener: Listener = async (event, appliances: Appliance[]) => {
         headers: {
           ...formData.getHeaders(),
         },
-      }
+      },
     )
     event.sender.send(Channels.PUT_APPLIANCES, true)
   } catch (error) {
