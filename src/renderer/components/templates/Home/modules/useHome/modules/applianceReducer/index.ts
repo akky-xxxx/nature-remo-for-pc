@@ -1,14 +1,16 @@
-// import
+// import node_modules
 import arrayMove from "array-move"
 
-// import
+// import others
+import { AnyObject } from "../../../../../../../shared/types/common"
 import { Appliance } from "../../../../../../../shared/types/api"
 
 // main
 type Action = {
   type: string
-  payload: Record<string, any>
+  payload: AnyObject
 }
+
 type ApplianceReducer = (state: Appliance[], action: Action) => Appliance[]
 export const applianceReducer: ApplianceReducer = (state, action) => {
   switch (action.type) {
