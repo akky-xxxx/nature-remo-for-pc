@@ -1,4 +1,4 @@
 export const Channels = {
   GET_APPLIANCES: "GET:appliances",
-  PUT_APPLIANCES: "PUT:appliances",
+  POST_APPLIANCE_ORDERS: "POST:appliance_order",
 } as const

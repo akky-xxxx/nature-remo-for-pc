@@ -20,7 +20,7 @@ import { DraggableWrapperProps, DraggableItemProps } from "./types"
 import { applianceReducer } from "./modules/applianceReducer"
 
 // main
-const { GET_APPLIANCES, PUT_APPLIANCES } = Channels
+const { GET_APPLIANCES, POST_APPLIANCE_ORDERS } = Channels
 const columns = [
   {
     title: "Sort",
@@ -179,7 +179,7 @@ export const useHome = () => {
   }
 
   const handleSaveAppliancesOrder = () => {
-    global.ipcRenderer.send(PUT_APPLIANCES, appliances)
+    global.ipcRenderer.send(POST_APPLIANCE_ORDERS, appliances)
   }
 
   return {

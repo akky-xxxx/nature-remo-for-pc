@@ -26,10 +26,10 @@ const listener: Listener = async (event, appliances: Appliance[]) => {
         },
       },
     )
-    event.sender.send(Channels.PUT_APPLIANCES, true)
+    event.sender.send(Channels.POST_APPLIANCE_ORDERS, true)
   } catch (error) {
     log.error(error)
   }
 }
 
-export const putAppliances = [Channels.PUT_APPLIANCES, listener] as const
+export const postApplianceOrders = [Channels.POST_APPLIANCE_ORDERS, listener] as const
