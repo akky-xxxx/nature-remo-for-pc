@@ -17,7 +17,11 @@ import { DraggableWrapperProps, DraggableItemProps } from "./types"
 import { applianceReducer } from "./modules/applianceReducer"
 
 // main
-const { GET_APPLIANCES, POST_APPLIANCE_ORDERS } = Channels
+const {
+  GET_APPLIANCES,
+  POST_APPLIANCE_ORDERS,
+  POST_APPLIANCES_APPLIANCE,
+} = Channels
 const columns = [
   {
     title: "Sort",
@@ -148,6 +152,10 @@ export const useHome = () => {
   }
 
   useEffect(() => {
+    global.ipcRenderer.on(POST_APPLIANCES_APPLIANCE, () => {
+      // eslint-disable-next-line no-alert
+      alert("更新成功")
+    })
     global.ipcRenderer.on(GET_APPLIANCES, (_event, args: Appliance[]) => {
       setData(args)
       dispatchAppliance({
