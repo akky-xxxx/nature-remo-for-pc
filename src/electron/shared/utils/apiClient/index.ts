@@ -13,6 +13,6 @@ const endpoint = isDev ? devEndpoint : prodEndpoint
 export const apiClient = axios.create({
   baseURL: endpoint,
   headers: {
-    Authorization: `Bearer ${process.env.NATURE_TOKEN}`,
+    Authorization: `Bearer ${process.env.NATURE_REMO_TOKEN}`,
   },
 })
