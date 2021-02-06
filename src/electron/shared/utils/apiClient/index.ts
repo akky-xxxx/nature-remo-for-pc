@@ -2,12 +2,10 @@
 import axios from "axios"
 import isDev from "electron-is-dev"
 import dotenv from "dotenv"
-
-// import others
-import { DotEnv } from "../../const/DotEnv"
+import { resolve } from "path"
 
 // main
-dotenv.config(DotEnv.CONFIG_OPTIONS)
+dotenv.config({ path: resolve(__dirname, "../../../../.env") })
 
 const prodEndpoint = "https://api.nature.global"
 const devEndpoint = "http://localhost:3001"
