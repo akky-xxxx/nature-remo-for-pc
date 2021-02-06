@@ -32,4 +32,7 @@ const listener: Listener = async (event, appliances: Appliance[]) => {
   }
 }
 
-export const postApplianceOrders = [Channels.POST_APPLIANCE_ORDERS, listener] as const
+export const postApplianceOrders = [
+  Channels.POST_APPLIANCE_ORDERS,
+  listener,
+] as const

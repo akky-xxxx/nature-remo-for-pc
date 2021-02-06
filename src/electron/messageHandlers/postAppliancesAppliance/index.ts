@@ -15,8 +15,10 @@ const listener: Listener = async (
   appliances: Omit<Appliance, "signals">,
 ) => {
   const { id, image, nickname } = appliances
-  console.log(appliances)
-  const endpoint = Endpoints.POST_APPLIANCES_APPLIANCE.replace("{:applianceId}", id)
+  const endpoint = Endpoints.POST_APPLIANCES_APPLIANCE.replace(
+    "{:applianceId}",
+    id,
+  )
   const formData = new FormData()
   formData.append("nickname", nickname)
   formData.append("image", image)
