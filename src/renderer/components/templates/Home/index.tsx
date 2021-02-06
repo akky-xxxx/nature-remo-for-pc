@@ -14,20 +14,15 @@ export const Home = () => {
     DraggableAppliances,
     DraggableAppliance,
     expandedRowRender,
-    onSayHiClick,
-    handleSaveAppliancesOrder,
   } = useHome()
 
   return (
     <div>
       <div>
-        <button type="button" onClick={onSayHiClick}>
-          get appliances
-        </button>
-
-        <button type="button" onClick={handleSaveAppliancesOrder}>
-          save appliances order
-        </button>
+        {/* TODO: 並び替えが sp app に反映されたらコメントアウト解除 */}
+        {/* <button type="button" onClick={handleSaveAppliancesOrder}> */}
+        {/*  save appliances order */}
+        {/* </button> */}
       </div>
 
       <Form>

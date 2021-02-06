@@ -155,11 +155,8 @@ export const useHome = () => {
         payload: { appliances: args },
       })
     })
-  }, [])
-
-  const onSayHiClick = () => {
     global.ipcRenderer.send(GET_APPLIANCES, null)
-  }
+  }, [])
 
   const handleSaveAppliancesOrder = () => {
     global.ipcRenderer.send(POST_APPLIANCE_ORDERS, appliances)
@@ -172,7 +169,6 @@ export const useHome = () => {
     DraggableAppliances,
     DraggableAppliance,
     expandedRowRender,
-    onSayHiClick,
     handleSaveAppliancesOrder,
   }
 }
