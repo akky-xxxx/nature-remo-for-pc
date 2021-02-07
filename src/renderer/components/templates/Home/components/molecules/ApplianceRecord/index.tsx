@@ -1,6 +1,6 @@
 // import node_modules
 import React, { ChangeEventHandler, FC, Fragment, useState } from "react"
-import { Button, Input } from "antd"
+import { Button, Input, Row, Col } from "antd"
 
 import { Channels } from "../../../../../../shared/const/Channels"
 
@@ -29,8 +29,14 @@ export const ApplianceRecord: FC<ApplianceRecordProps> = (props) => {
 
   return (
     <Fragment>
-      <Input value={thisNickname} onChange={handleChangeNickname} />
-      <Button onClick={handleSaveAppliancesName}>保存</Button>
+      <Row>
+        <Col flex="70">
+          <Input value={thisNickname} onChange={handleChangeNickname} />
+        </Col>
+        <Col flex="auto">
+          <Button type="primary" disabled={!thisNickname.length} onClick={handleSaveAppliancesName}>保存</Button>
+        </Col>
+      </Row>
     </Fragment>
   )
 }

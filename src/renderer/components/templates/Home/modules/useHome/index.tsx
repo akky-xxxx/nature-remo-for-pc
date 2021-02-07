@@ -1,6 +1,6 @@
 // import node_modules
-import React, { useEffect, useState, useReducer, FC } from "react"
-import { Form, Input, Table, TableProps } from "antd"
+import React, { useEffect, useState, useReducer, FC, Fragment } from "react"
+import { Input, Table, TableProps, Row, Col, Button } from "antd"
 import { ColumnsType } from "antd/es/table"
 import arrayMove from "array-move"
 
@@ -35,9 +35,16 @@ const columns = [
     dataIndex: "name",
     className: "drag-visible",
     render: (name: string) => (
-      <Form.Item rules={[{ required: true }]}>
-        <Input value={name} />
-      </Form.Item>
+      <Fragment>
+        <Row>
+          <Col flex="70">
+            <Input value={name} />
+          </Col>
+          <Col flex="auto">
+            <Button type="primary" disabled={!name.length}>保存</Button>
+          </Col>
+        </Row>
+      </Fragment>
     ),
   },
 ]
@@ -67,11 +74,7 @@ export const useHome = () => {
       title: "Appliance",
       dataIndex: "nickname",
       className: "drag-visible",
-      render: (_nickname: string, record) => (
-        <Form.Item rules={[{ required: true }]}>
-          <ApplianceRecord {...record} />
-        </Form.Item>
-      ),
+      render: (_nickname: string, record) => <ApplianceRecord {...record} />,
     },
   ]
 
