@@ -25,6 +25,7 @@ const listener: Listener = async (event, signal: Signal) => {
     event.sender.send(Channels.POST_SIGNALS_SIGNAL, true)
   } catch (error) {
     log.error(error)
+    event.sender.send(Channels.POST_SIGNALS_SIGNAL, false)
   }
 }
 

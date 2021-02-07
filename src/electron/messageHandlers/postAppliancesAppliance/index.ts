@@ -31,6 +31,7 @@ const listener: Listener = async (
     event.sender.send(Channels.POST_APPLIANCES_APPLIANCE, true)
   } catch (error) {
     log.error(error)
+    event.sender.send(Channels.POST_APPLIANCES_APPLIANCE, false)
   }
 }
 

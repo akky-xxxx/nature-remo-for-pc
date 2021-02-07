@@ -29,6 +29,7 @@ const listener: Listener = async (event, appliances: Appliance[]) => {
     event.sender.send(Channels.POST_APPLIANCE_ORDERS, true)
   } catch (error) {
     log.error(error)
+    event.sender.send(Channels.POST_APPLIANCE_ORDERS, false)
   }
 }
 
