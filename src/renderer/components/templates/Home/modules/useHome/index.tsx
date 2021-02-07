@@ -146,21 +146,34 @@ export const useHome = () => {
   }
 
   useEffect(() => {
-    global.ipcRenderer.on(POST_APPLIANCES_APPLIANCE, () => {
-      // eslint-disable-next-line no-alert
-      alert("更新成功")
-    })
-    global.ipcRenderer.on(POST_SIGNALS_SIGNAL, () => {
-      // eslint-disable-next-line no-alert
-      alert("更新成功")
-    })
-    global.ipcRenderer.on(GET_APPLIANCES, (_event, args: Appliance[]) => {
-      setData(args)
-      dispatchAppliance({
-        type: "initialize",
-        payload: { appliances: args },
-      })
-    })
+    global.ipcRenderer.on(
+      POST_APPLIANCES_APPLIANCE,
+      (_event: unknown, args: unknown) => {
+        // eslint-disable-next-line no-alert
+        alert(args !== false ? "機器名の更新成功" : "機器名の更新失敗")
+      },
+    )
+    global.ipcRenderer.on(
+      POST_SIGNALS_SIGNAL,
+      (_event: unknown, args: unknown) => {
+        // eslint-disable-next-line no-alert
+        alert(args !== false ? "シグナル名の更新成功" : "シグナル名の更新失敗")
+      },
+    )
+    global.ipcRenderer.on(
+      GET_APPLIANCES,
+      (_event, args: Appliance[] | false) => {
+        if (args === false) {
+          // eslint-disable-next-line no-alert
+          return alert("一覧の取得に失敗しました")
+        }
+        setData(args)
+        return dispatchAppliance({
+          type: "initialize",
+          payload: { appliances: args },
+        })
+      },
+    )
     global.ipcRenderer.send(GET_APPLIANCES, null)
   }, [])
 

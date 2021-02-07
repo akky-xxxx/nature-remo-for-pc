@@ -24,6 +24,7 @@ const listener: Listener = async (event) => {
     event.sender.send(Channels.GET_APPLIANCES, responseData)
   } catch (error) {
     log.error(error)
+    event.sender.send(Channels.GET_APPLIANCES, false)
   }
 }
 
