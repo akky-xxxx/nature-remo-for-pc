@@ -34,7 +34,13 @@ export const ApplianceRecord: FC<ApplianceRecordProps> = (props) => {
           <Input value={thisNickname} onChange={handleChangeNickname} />
         </Col>
         <Col flex="auto">
-          <Button type="primary" disabled={!thisNickname.length} onClick={handleSaveAppliancesName}>保存</Button>
+          <Button
+            type="primary"
+            disabled={!thisNickname.length}
+            onClick={handleSaveAppliancesName}
+          >
+            保存
+          </Button>
         </Col>
       </Row>
     </Fragment>

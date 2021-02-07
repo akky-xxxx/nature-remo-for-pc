@@ -10,6 +10,7 @@ import log from "electron-log"
 import { getAppliances } from "./messageHandlers/getAppliances"
 import { postAppliancesAppliance } from "./messageHandlers/postAppliancesAppliance"
 import { postApplianceOrders } from "./messageHandlers/postApplianceOrders"
+import { postSignalsSignal } from "./messageHandlers/postSignalsSignal"
 
 // main
 app.on("ready", async () => {
@@ -42,6 +43,7 @@ app.on("window-all-closed", app.quit)
 ipcMain.on(...getAppliances)
 ipcMain.on(...postAppliancesAppliance)
 ipcMain.on(...postApplianceOrders)
+ipcMain.on(...postSignalsSignal)
 
 process.on("uncaughtException", (err) => {
   log.error("electron:event:uncaughtException")
