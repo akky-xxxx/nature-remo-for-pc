@@ -41,7 +41,7 @@ const columns = [
             <Input value={name} />
           </Col>
           <Col flex="auto">
-            <Button>保存</Button>
+            <Button type="primary" disabled={!name.length}>保存</Button>
           </Col>
         </Row>
       </Fragment>
