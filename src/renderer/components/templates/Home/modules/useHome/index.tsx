@@ -1,14 +1,15 @@
 // import node_modules
-import React, { useEffect, useState, useReducer, FC, Fragment } from "react"
-import { Input, Table, TableProps, Row, Col, Button } from "antd"
+import React, { useEffect, useState, useReducer, FC } from "react"
+import { Table, TableProps } from "antd"
 import { ColumnsType } from "antd/es/table"
 import arrayMove from "array-move"
 
 // import components
 import { ApplianceRecord } from "../../components/molecules/ApplianceRecord"
+import { SignalRecord } from "../../components/molecules/SignalRecord"
 
 // import others
-import { Appliance } from "../../../../../shared/types/api"
+import { Appliance, Signal } from "../../../../../shared/types/api"
 import { SortableWrapper } from "../../components/atoms/SortableWrapper"
 import { SortableItem } from "../../components/atoms/SortableItem"
 import { Channels } from "../../../../../shared/const/Channels"
@@ -21,8 +22,9 @@ const {
   GET_APPLIANCES,
   POST_APPLIANCE_ORDERS,
   POST_APPLIANCES_APPLIANCE,
+  POST_SIGNALS_SIGNAL,
 } = Channels
-const columns = [
+const columns: ColumnsType<Signal> = [
   {
     title: "Sort",
     dataIndex: "sort",
@@ -34,18 +36,7 @@ const columns = [
     title: "Signal",
     dataIndex: "name",
     className: "drag-visible",
-    render: (name: string) => (
-      <Fragment>
-        <Row>
-          <Col flex="70">
-            <Input value={name} />
-          </Col>
-          <Col flex="auto">
-            <Button type="primary" disabled={!name.length}>保存</Button>
-          </Col>
-        </Row>
-      </Fragment>
-    ),
+    render: (_name, record) => <SignalRecord {...record} />,
   },
 ]
 
@@ -156,6 +147,10 @@ export const useHome = () => {
 
   useEffect(() => {
     global.ipcRenderer.on(POST_APPLIANCES_APPLIANCE, () => {
+      // eslint-disable-next-line no-alert
+      alert("更新成功")
+    })
+    global.ipcRenderer.on(POST_SIGNALS_SIGNAL, () => {
       // eslint-disable-next-line no-alert
       alert("更新成功")
     })
