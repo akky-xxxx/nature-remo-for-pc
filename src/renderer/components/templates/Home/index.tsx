@@ -1,6 +1,6 @@
 // import node_modules
 import React from "react"
-import { Table, Form } from "antd"
+import { Table } from "antd"
 import "antd/dist/antd.css"
 
 // import others
@@ -25,20 +25,18 @@ export const Home = () => {
         {/* </button> */}
       </div>
 
-      <Form>
-        <Table
-          dataSource={appliances}
-          pagination={false}
-          columns={applianceColumns}
-          expandable={{ expandedRowRender, expandIconColumnIndex: 1 }}
-          components={{
-            body: {
-              wrapper: DraggableAppliances,
-              row: DraggableAppliance,
-            },
-          }}
-        />
-      </Form>
+      <Table
+        dataSource={appliances}
+        pagination={false}
+        columns={applianceColumns}
+        expandable={{ expandedRowRender, expandIconColumnIndex: 1 }}
+        components={{
+          body: {
+            wrapper: DraggableAppliances,
+            row: DraggableAppliance,
+          },
+        }}
+      />
     </div>
   )
 }

@@ -1,28 +1,31 @@
 // import node_modules
 import React, { useEffect, useState, useReducer, FC } from "react"
-import { Form, Input, Table, TableProps } from "antd"
+import { Table, TableProps } from "antd"
 import { ColumnsType } from "antd/es/table"
 import arrayMove from "array-move"
 
 // import components
 import { ApplianceRecord } from "../../components/molecules/ApplianceRecord"
+import { SignalRecord } from "../../components/molecules/SignalRecord"
 
 // import others
-import { Appliance } from "../../../../../shared/types/api"
+import { Appliance, Signal } from "../../../../../shared/types/api"
 import { SortableWrapper } from "../../components/atoms/SortableWrapper"
 import { SortableItem } from "../../components/atoms/SortableItem"
 import { Channels } from "../../../../../shared/const/Channels"
 import { DragHandle } from "../../components/atoms/DragHandle"
 import { DraggableWrapperProps, DraggableItemProps } from "./types"
 import { applianceReducer } from "./modules/applianceReducer"
+import { thisAlert } from "../../../../../shared/utils/thisAlert"
 
 // main
 const {
   GET_APPLIANCES,
   POST_APPLIANCE_ORDERS,
   POST_APPLIANCES_APPLIANCE,
+  POST_SIGNALS_SIGNAL,
 } = Channels
-const columns = [
+const columns: ColumnsType<Signal> = [
   {
     title: "Sort",
     dataIndex: "sort",
@@ -34,11 +37,7 @@ const columns = [
     title: "Signal",
     dataIndex: "name",
     className: "drag-visible",
-    render: (name: string) => (
-      <Form.Item rules={[{ required: true }]}>
-        <Input value={name} />
-      </Form.Item>
-    ),
+    render: (_name, record) => <SignalRecord {...record} />,
   },
 ]
 
@@ -67,11 +66,7 @@ export const useHome = () => {
       title: "Appliance",
       dataIndex: "nickname",
       className: "drag-visible",
-      render: (_nickname: string, record) => (
-        <Form.Item rules={[{ required: true }]}>
-          <ApplianceRecord {...record} />
-        </Form.Item>
-      ),
+      render: (_nickname: string, record) => <ApplianceRecord {...record} />,
     },
   ]
 
@@ -152,17 +147,34 @@ export const useHome = () => {
   }
 
   useEffect(() => {
-    global.ipcRenderer.on(POST_APPLIANCES_APPLIANCE, () => {
-      // eslint-disable-next-line no-alert
-      alert("更新成功")
-    })
-    global.ipcRenderer.on(GET_APPLIANCES, (_event, args: Appliance[]) => {
-      setData(args)
-      dispatchAppliance({
-        type: "initialize",
-        payload: { appliances: args },
-      })
-    })
+    global.ipcRenderer.on(
+      POST_APPLIANCES_APPLIANCE,
+      (_event: unknown, args: unknown) => {
+        thisAlert(args !== false ? "機器名の更新成功" : "機器名の更新失敗")
+      },
+    )
+    global.ipcRenderer.on(
+      POST_SIGNALS_SIGNAL,
+      (_event: unknown, args: unknown) => {
+        // eslint-disable-next-line no-alert
+        thisAlert(
+          args !== false ? "シグナル名の更新成功" : "シグナル名の更新失敗",
+        )
+      },
+    )
+    global.ipcRenderer.on(
+      GET_APPLIANCES,
+      (_event, args: Appliance[] | false) => {
+        if (args === false) {
+          return thisAlert("一覧の取得に失敗しました")
+        }
+        setData(args)
+        return dispatchAppliance({
+          type: "initialize",
+          payload: { appliances: args },
+        })
+      },
+    )
     global.ipcRenderer.send(GET_APPLIANCES, null)
   }, [])
 

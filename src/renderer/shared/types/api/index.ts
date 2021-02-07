@@ -1,4 +1,4 @@
-type Signal = {
+export type Signal = {
   id: string
   name: string
   index: number

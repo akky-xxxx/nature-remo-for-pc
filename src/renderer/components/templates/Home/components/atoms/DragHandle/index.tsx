@@ -5,5 +5,6 @@ import { MenuOutlined } from "@ant-design/icons"
 
 // main
 export const DragHandle = SortableHandle(() => (
-  <MenuOutlined style={{ cursor: "pointer" }} />
+  // TODO: 並び替えが sp に反映されないため、操作できないようにしておく
+  <MenuOutlined style={{ cursor: "pointer", pointerEvents: "none" }} />
 ))
