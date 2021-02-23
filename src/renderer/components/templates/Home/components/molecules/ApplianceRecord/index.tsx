@@ -10,9 +10,10 @@ type ApplianceRecordProps = {
   id: string
   nickname: string
   image: string
+  handleShowSpinner: () => void
 }
 export const ApplianceRecord: FC<ApplianceRecordProps> = (props) => {
-  const { nickname, id, image } = props
+  const { nickname, id, image, handleShowSpinner } = props
   const [thisNickname, setThisNickname] = useState(nickname)
   const handleChangeNickname: ChangeEventHandler<HTMLInputElement> = (
     event,
@@ -24,6 +25,7 @@ export const ApplianceRecord: FC<ApplianceRecordProps> = (props) => {
   }
   const requestData = { id, image, nickname: thisNickname }
   const handleSaveAppliancesName = () => {
+    handleShowSpinner()
     global.ipcRenderer.send(POST_APPLIANCES_APPLIANCE, requestData)
   }
 
