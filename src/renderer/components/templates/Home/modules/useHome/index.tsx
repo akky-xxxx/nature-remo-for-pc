@@ -53,7 +53,9 @@ export const useHome = () => {
       title: "Appliance",
       dataIndex: "nickname",
       className: "drag-visible",
-      render: (_nickname: string, record) => <ApplianceRecord handleShowSpinner={handleShowSpinner} {...record} />,
+      render: (_nickname: string, record) => (
+        <ApplianceRecord handleShowSpinner={handleShowSpinner} {...record} />
+      ),
     },
   ]
 
@@ -69,7 +71,9 @@ export const useHome = () => {
       title: "Signal",
       dataIndex: "name",
       className: "drag-visible",
-      render: (_name, record) => <SignalRecord handleShowSpinner={handleShowSpinner} {...record} />,
+      render: (_name, record) => (
+        <SignalRecord handleShowSpinner={handleShowSpinner} {...record} />
+      ),
     },
   ]
 
