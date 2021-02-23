@@ -25,26 +25,13 @@ const {
   POST_APPLIANCES_APPLIANCE,
   POST_SIGNALS_SIGNAL,
 } = Channels
-const columns: ColumnsType<Signal> = [
-  {
-    title: "Sort",
-    dataIndex: "sort",
-    width: 30,
-    className: "drag-visible",
-    render: () => <DragHandle />,
-  },
-  {
-    title: "Signal",
-    dataIndex: "name",
-    className: "drag-visible",
-    render: (_name, record) => <SignalRecord {...record} />,
-  },
-]
 
 type ExpandedRowRender = TableProps<Appliance>["expandedRowRender"]
 export const useHome = () => {
   const [data, setData] = useState<Appliance[]>([]) // TODO: 差し替え終わったら消す
   const [appliances, dispatchAppliance] = useReducer(applianceReducer, [])
+  const [isLoading, setLoading] = useState(false)
+  const handleShowSpinner = () => setLoading(true)
   const handleSortEndAppliances = (
     args: Record<"oldIndex" | "newIndex", number>,
   ) => {
@@ -66,7 +53,27 @@ export const useHome = () => {
       title: "Appliance",
       dataIndex: "nickname",
       className: "drag-visible",
-      render: (_nickname: string, record) => <ApplianceRecord {...record} />,
+      render: (_nickname: string, record) => (
+        <ApplianceRecord handleShowSpinner={handleShowSpinner} {...record} />
+      ),
+    },
+  ]
+
+  const columns: ColumnsType<Signal> = [
+    {
+      title: "Sort",
+      dataIndex: "sort",
+      width: 30,
+      className: "drag-visible",
+      render: () => <DragHandle />,
+    },
+    {
+      title: "Signal",
+      dataIndex: "name",
+      className: "drag-visible",
+      render: (_name, record) => (
+        <SignalRecord handleShowSpinner={handleShowSpinner} {...record} />
+      ),
     },
   ]
 
@@ -151,15 +158,16 @@ export const useHome = () => {
       POST_APPLIANCES_APPLIANCE,
       (_event: unknown, args: unknown) => {
         thisAlert(args !== false ? "機器名の更新成功" : "機器名の更新失敗")
+        setLoading(false)
       },
     )
     global.ipcRenderer.on(
       POST_SIGNALS_SIGNAL,
       (_event: unknown, args: unknown) => {
-        // eslint-disable-next-line no-alert
         thisAlert(
           args !== false ? "シグナル名の更新成功" : "シグナル名の更新失敗",
         )
+        setLoading(false)
       },
     )
     global.ipcRenderer.on(
@@ -169,16 +177,19 @@ export const useHome = () => {
           return thisAlert("一覧の取得に失敗しました")
         }
         setData(args)
+        setLoading(false)
         return dispatchAppliance({
           type: "initialize",
           payload: { appliances: args },
         })
       },
     )
+    setLoading(true)
     global.ipcRenderer.send(GET_APPLIANCES, null)
   }, [])
 
   const handleSaveAppliancesOrder = () => {
+    setLoading(true)
     global.ipcRenderer.send(POST_APPLIANCE_ORDERS, appliances)
   }
 
@@ -186,6 +197,7 @@ export const useHome = () => {
     data, // TODO: 差し替え終わったら消す
     appliances,
     applianceColumns,
+    isLoading,
     DraggableAppliances,
     DraggableAppliance,
     expandedRowRender,

@@ -10,9 +10,10 @@ type SignalRecordProps = {
   id: string
   name: string
   image: string
+  handleShowSpinner: () => void
 }
 export const SignalRecord: FC<SignalRecordProps> = (props) => {
-  const { name, id, image } = props
+  const { name, id, image, handleShowSpinner } = props
   const [thisName, setThisNickname] = useState(name)
   const handleChangeName: ChangeEventHandler<HTMLInputElement> = (event) => {
     const {
@@ -22,6 +23,7 @@ export const SignalRecord: FC<SignalRecordProps> = (props) => {
   }
   const requestData = { id, image, name: thisName }
   const handleSaveSignalName = () => {
+    handleShowSpinner()
     global.ipcRenderer.send(POST_SIGNALS_SIGNAL, requestData)
   }
 

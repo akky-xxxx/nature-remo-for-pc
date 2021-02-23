@@ -1,6 +1,6 @@
 // import node_modules
 import React from "react"
-import { Table } from "antd"
+import { Table, Spin } from "antd"
 import "antd/dist/antd.css"
 
 // import others
@@ -11,13 +11,14 @@ export const Home = () => {
   const {
     appliances,
     applianceColumns,
+    isLoading,
     DraggableAppliances,
     DraggableAppliance,
     expandedRowRender,
   } = useHome()
 
   return (
-    <div>
+    <Spin spinning={isLoading} size="large">
       <div>
         {/* TODO: 並び替えが sp app に反映されたらコメントアウト解除 */}
         {/* <button type="button" onClick={handleSaveAppliancesOrder}> */}
@@ -37,6 +38,6 @@ export const Home = () => {
           },
         }}
       />
-    </div>
+    </Spin>
   )
 }
