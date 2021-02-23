@@ -1,7 +1,7 @@
 {
   "name": "nature-remo-for-pc",
   "productName": "NatureRemoForPc",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "akky-xxxx <114.s.aki@gmail.com>",
   "main": "main/index.js",
   "scripts": {
